@@ -1,5 +1,5 @@
 # teaching-vision
-This project provides the exercises for my computer vision class in which the students are ought to solve various tasks that are closely related to the course material.
+This project provides the exercises for my visual computing class in which the students are ought to solve various tasks that are closely related to the course material.
 
 ## setup
 I highly recommend using Anaconda with Python 3 to do the exercises. You can obtain the version that I will be using by executing the following commands. Feel free to use other environments as well. However, the recommended environment is what will be used for grading. Furthermore, while you are encouraged to use your own machine, please note that I am unable to provide individual support.
@@ -36,6 +36,21 @@ Implement the bilinear interpolation described in the slides as well as in "Inte
 * https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.ndarray.shape.html
 
 Notice that diagonal edges are particularly prone to artifacts with this simple approach. In partice, other algorithms work much better.
+
+## `04-convolution` (5 points)
+Use convolutions to implement demosaicing algorithm described in the slides as well as in "Interactions Between Color Plane Interpolation and Other Image Processing Functions in Electronic Photography" by Adams. Some resources that can potentially help you to achieve this goal are stated blow.
+
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#ga27c049795ce870216ddfb366086b5a04
+
+Other than that the output is one pixel larger on each side, the result should otherwise be identical to the previous exercise that does not make use of convolutions. The new approach is likely to be much faster though.
+
+## `05-median` (5 points)
+Filter a given image once by using a Gaussian kernel and once by using a median filter. Feel free to use the functions built into OpenCV which are implementaitons of the theory covered in class. Some resources that can potentially help you to achieve this goal are stated blow.
+
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
+
+Notice that the [implementation](https://github.com/opencv/opencv/blob/master/modules/imgproc/src/smooth.cpp#L2686) of the median filtering is heavily optimized. Note that our usage of it could potentially be sped up by using `uint8` over `float32` arrays.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
