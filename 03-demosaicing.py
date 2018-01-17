@@ -25,4 +25,6 @@ numpyOutput = numpy.zeros([numpyInput.shape[0] - 2, numpyInput.shape[1] - 2, 3],
 # however, depending on the case, you either get four or only two neighboring values for red and blue
 # this is perfectly fine, in this case you can simply use the average of two values if only two neighbors are available
 
+
+
 cv2.imwrite(filename='./03-demosaicing.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

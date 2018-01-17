@@ -39,4 +39,6 @@ numpyOutput[0::2, 0::2, 2] = numpyInput[0::2, 0::2]
 # to be able to convolve a channel from numpyOutput and storing the result back in the same channel, the convolution must not affect the resolution
 # we need padding for the convolution to not affect the resolution, this is already built into OpenCV but make sure to use cv2.BORDER_DEFAULT as the border type
 
+
+
 cv2.imwrite(filename='./04-convolution.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

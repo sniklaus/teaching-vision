@@ -8,5 +8,7 @@ numpyInput = cv2.imread(filename='./samples/noise.png', flags=cv2.IMREAD_COLOR).
 
 # use a median filter of size 3x3 to filter numpyInput and store the result in numpySecond
 
+
+
 cv2.imwrite(filename='./05-median-1.png', img=(numpyFirst * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
 cv2.imwrite(filename='./05-median-2.png', img=(numpySecond * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

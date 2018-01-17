@@ -13,4 +13,6 @@ numpyInput = cv2.imread(filename='./samples/fruits.png', flags=cv2.IMREAD_COLOR)
 
 # keep in mind that that opencv arranges the color channels typically in the order of blue, green, red
 
+
+
 cv2.imwrite(filename='./01-colorspace.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
