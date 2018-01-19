@@ -68,7 +68,7 @@ Implement a Laplacian pyramid described in the slides as well as in "The Laplaci
 * https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gaf9bba239dfca11654cb7f50f889fc2ff
 * https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gada75b59bdaaca411ed6fee10085eb784
 
-Due to the built-in `pyrDown` and `pyrUp` functions of OpenCV, this tasks becomes relatively simple since they mimic the `REDUCE` and `EXPAND` operations.
+Due to the built-in `pyrDown` and `pyrUp` functions of OpenCV, this tasks becomes relatively simple since they directly mimic the `REDUCE` and `EXPAND` operations.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
