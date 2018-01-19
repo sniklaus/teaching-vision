@@ -50,7 +50,25 @@ Filter a given image once by using a Gaussian kernel and once by using a median 
 * https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gaabe8c836e97159a9193fb0b11ac52cf1
 * https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#ga564869aa33e58769b4469101aac458f9
 
-Notice that the [implementation](https://github.com/opencv/opencv/blob/master/modules/imgproc/src/smooth.cpp#L2686) of the median filtering is heavily optimized. Note that our usage of it could potentially be sped up by using `uint8` over `float32` arrays.
+Notice that the [implementation](https://github.com/opencv/opencv/blob/master/modules/imgproc/src/smooth.cpp#L2686) of the median filtering is heavily optimized. Our usage of this implementation could potentially be sped up by using `uint8` over `float32` arrays.
+
+## `06-spectrum` (10 points)
+Make use of the convolution theorem and implement a convolution as a Hadamard product in the frequency space. Some resources that can potentially help you to achieve this goal are stated blow.
+
+* https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.pad.html
+* https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.roll.html
+* https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.fft.fft2.html
+* https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.fft.ifft2.html
+
+Make sure to examine the resulting plot of the spectrum and how the diagonal within the filter kernel is resembled in its frequency spectrum.
+
+## `07-pyramid` (5 points)
+Implement a Laplacian pyramid described in the slides as well as in "The Laplacian Pyramid as a Compact Image Code" by Burt and Adelson. Some resources that can potentially help you to achieve this goal are stated blow.
+
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gaf9bba239dfca11654cb7f50f889fc2ff
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gada75b59bdaaca411ed6fee10085eb784
+
+Due to the built-in `pyrDown` and `pyrUp` functions of OpenCV, this tasks becomes relatively simple since they mimic the `REDUCE` and `EXPAND` operations.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.

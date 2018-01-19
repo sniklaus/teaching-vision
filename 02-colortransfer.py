@@ -13,9 +13,11 @@ numpyTo = cv2.cvtColor(src=numpyTo, code=cv2.COLOR_BGR2Lab)
 
 # match the color statistics of numpyTo to those of numpyFrom
 
-# calculate the per-channel mean of the data points / pixels of numpyTo, and subtract these from numpyTo according to equation 10
-# calculate the per-channel std of the data points / pixels of numpyTo and numpyFrom, and scale numpyTo according to equation 11
-# calculate the per-channel mean of the data points / pixels of numpyFrom, and add these to numpyTo according to the description after equation 11
+# calculate the per-channel mean of the data points / intensities of numpyTo, and subtract these from numpyTo according to equation 10
+# calculate the per-channel std of the data points / intensities of numpyTo and numpyFrom, and scale numpyTo according to equation 11
+# calculate the per-channel mean of the data points / intensities of numpyFrom, and add these to numpyTo according to the description after equation 11
+
+
 
 
 
