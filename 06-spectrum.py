@@ -1,6 +1,5 @@
 import numpy
 import cv2
-import matplotlib.pyplot
 
 numpyImage = cv2.imread(filename='./samples/lenna.png', flags=cv2.IMREAD_GRAYSCALE).astype(numpy.float32) / 255.0
 
