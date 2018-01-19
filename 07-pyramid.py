@@ -12,7 +12,7 @@ numpyInput = cv2.imread(filename='./samples/lenna.png', flags=cv2.IMREAD_COLOR).
 
 
 # the following iterates over the levels in numpyPyramid and saves them as an image accordingly
-# level zero is just a small-scale representation of the original input image anc can be safed as usual
+# level four is just a small-scale representation of the original input image anc can be safed as usual
 # the value range for the other levels are outside of [0, 1] and a color mapping is applied before saving them
 
 for intLevel in range(len(numpyPyramid)):
