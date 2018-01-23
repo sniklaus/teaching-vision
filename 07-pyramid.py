@@ -7,6 +7,8 @@ numpyInput = cv2.imread(filename='./samples/lenna.png', flags=cv2.IMREAD_COLOR).
 
 # create a laplacian pyramid with four levels as described in the slides as well as in the referenced paper
 
+numpyPyramid = []
+
 
 
 
