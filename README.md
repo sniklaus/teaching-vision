@@ -70,6 +70,14 @@ Implement a Laplacian pyramid described in the slides as well as in "The Laplaci
 
 Due to the built-in `pyrDown` and `pyrUp` functions of OpenCV, this tasks becomes relatively simple since they directly mimic the `REDUCE` and `EXPAND` operations.
 
+## `08-homography` (10 points)
+Given four corresponding points, estimate the Homography matrix and warp the image accordingly. Do this step by step as shown in class and do not use the functions state below.
+
+* https://docs.opencv.org/3.4.0/d9/d0c/group__calib3d.html#ga4abc2ece9fab9398f2e560d53c8c9780
+* https://docs.opencv.org/3.4.0/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87
+
+Note that the approach without bilinear interpolation that I showed in class is fairly slow due to Python. A sampling grid could be used to speed this up.
+
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
 
