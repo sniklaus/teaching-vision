@@ -6,12 +6,12 @@ import cv2
 numpyFrom = cv2.imread(filename='./samples/transfer-from.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 numpyTo = cv2.imread(filename='./samples/transfer-to.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 
+# match the color statistics of numpyTo to those of numpyFrom
+
 # in order for make matching the statistics more meaningful, the images are first converted to the LAB color space
 
 numpyFrom = cv2.cvtColor(src=numpyFrom, code=cv2.COLOR_BGR2Lab)
 numpyTo = cv2.cvtColor(src=numpyTo, code=cv2.COLOR_BGR2Lab)
-
-# match the color statistics of numpyTo to those of numpyFrom
 
 # calculate the per-channel mean of the data points / intensities of numpyTo, and subtract these from numpyTo according to equation 10
 # calculate the per-channel std of the data points / intensities of numpyTo and numpyFrom, and scale numpyTo according to equation 11

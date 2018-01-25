@@ -4,7 +4,9 @@ import math
 
 numpyInput = cv2.imread(filename='./samples/homography-2.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 
-# create the mapping between the four corresponding points
+# estimate the homography matrix between matching points and warp the image using bilinear interpolation
+
+# creating the mapping between the four corresponding points
 
 intSrc = [ [266, 343], [646, 229], [388, 544], [777, 538] ]
 intDst = [ [302, 222], [746, 231], [296, 490], [754, 485] ]

@@ -78,6 +78,14 @@ Given four corresponding points, estimate the Homography matrix and warp the ima
 
 Note that the approach without bilinear interpolation that I showed in class is fairly slow due to Python. A sampling grid could be used to speed this up.
 
+## `09-colorize` (5 points)
+Compose a color image from a [Prokudin-Gorskii](https://www.loc.gov/pictures/collection/prok/process.html) photo by aligning the invididual exposures and stacking them. Some resources that can potentially help you to achieve this goal are stated blow.
+
+* https://docs.opencv.org/3.4.0/dc/d6b/group__video__track.html#ga7ded46f9a55c0364c92ccd2019d43e3a
+* https://docs.opencv.org/3.4.0/da/d54/group__imgproc__transform.html#gaf73673a7e8e18ec6963e3774e6a94b87
+
+Note that the movement of individual objects in between two exposures is not captured by the Homography transform. We will discuss how to address these in a different lecture.
+
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
 

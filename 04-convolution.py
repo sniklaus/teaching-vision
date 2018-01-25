@@ -5,8 +5,6 @@ import cv2
 
 numpyInput = cv2.imread(filename='./samples/demosaicing.png', flags=cv2.IMREAD_GRAYSCALE).astype(numpy.float32) / 255.0
 
-numpyOutput = numpy.zeros([numpyInput.shape[0], numpyInput.shape[1], 3], numpy.float32)
-
 # demosaic numpyInput by using convololutions to mimic bilinear interpolation as shown in the slides and described in section 3.3
 
 # the input has the following beyer pattern, id est that the top left corner is red
@@ -28,6 +26,8 @@ numpyOutput = numpy.zeros([numpyInput.shape[0], numpyInput.shape[1], 3], numpy.f
 # ...........
 
 # since this can be tricky and you might not be perfectly familiar with indexing and splicing matrices yet, this is already done for you below
+
+numpyOutput = numpy.zeros([numpyInput.shape[0], numpyInput.shape[1], 3], numpy.float32)
 
 numpyOutput[1::2, 1::2, 0] = numpyInput[1::2, 1::2]
 numpyOutput[0::2, 1::2, 1] = numpyInput[0::2, 1::2]
