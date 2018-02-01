@@ -5,7 +5,7 @@ import cv2
 
 numpyInput = cv2.imread(filename='./samples/demosaicing.png', flags=cv2.IMREAD_GRAYSCALE).astype(numpy.float32) / 255.0
 
-# demosaic numpyInput by using convololutions to mimic bilinear interpolation as shown in the slides and described in section 3.3
+# demosaic numpyInput by using convolutions to mimic bilinear interpolation as shown in the slides and described in section 3.3
 
 # the input has the following beyer pattern, id est that the top left corner is red
 

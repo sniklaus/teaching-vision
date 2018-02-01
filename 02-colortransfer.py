@@ -13,6 +13,7 @@ numpyTo = cv2.imread(filename='./samples/transfer-to.png', flags=cv2.IMREAD_COLO
 numpyFrom = cv2.cvtColor(src=numpyFrom, code=cv2.COLOR_BGR2Lab)
 numpyTo = cv2.cvtColor(src=numpyTo, code=cv2.COLOR_BGR2Lab)
 
+# not that the paper uses the notation target / source, here the notation is from / to
 # calculate the per-channel mean of the data points / intensities of numpyTo, and subtract these from numpyTo according to equation 10
 # calculate the per-channel std of the data points / intensities of numpyTo and numpyFrom, and scale numpyTo according to equation 11
 # calculate the per-channel mean of the data points / intensities of numpyFrom, and add these to numpyTo according to the description after equation 11
