@@ -22,6 +22,7 @@ for intRemove in range(100):
 	# when iterating over the rows, ignore M(y-1, ...) that are out of bounds
 
 	# several seams can have the same energy, use the following for consistency
+	# start at the leftmost M(height-1, x) with the lowest cumulative energy
 	# should M(y-1, x) be equal to M(y-1, x-1) or M(y-1, x+1) then use (y-1, x)
 	# similarly should M(y-1, x-1) be equal to M(y-1, x+1) then use (y-1, x-1)
 
@@ -40,6 +41,18 @@ for intRemove in range(100):
 
 	for intY in range(1, len(intSeam)):
 		assert(intSeam[intY] - intSeam[intY - 1] in [-1, 0, 1])
+	# end
+
+	# change the following condition to true if you want to visualize the seams that are being removed
+	# note that this will not work if you are connected to the linux lab via ssh but no x forwarding
+
+	if False:
+		for intY in range(len(intSeam)):
+			numpyInput[intY, intSeam[intY], :] = numpy.array([ 0.0, 0.0, 1.0 ], numpy.float32)
+		# end
+
+		cv2.imshow(winname='numpyInput', mat=numpyInput)
+		cv2.waitKey(delay=10)
 	# end
 
 	# removing the identified seam by iterating over each row and shifting them accordingly
