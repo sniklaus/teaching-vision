@@ -25,6 +25,8 @@ for intLevel in range(6):
 # specifically, take the left half from numpyFirst and the right half from numpySecond at each level
 # afterwards, collapse numpyPyramid to obtain the blended result and store it in numpyOutput
 
+numpyPyramid = []
+
 
 
 
