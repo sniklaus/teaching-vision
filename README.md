@@ -98,9 +98,29 @@ The sample solution uses `numpy.concatenate` to combine the individual halves. T
 ## `11-seam` (10 points)
 Implement seam carving as described in the slides as well as in "Seam Carving for Content-Aware Image Resizing" by Avidan and Shamir. Some resources that can potentially help you to achieve this goal are stated below.
 
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.copy.html
 * https://docs.scipy.org/doc/numpy/reference/generated/numpy.argmin.html
 
 This can potentially be slow due to Python, the sample solution takes almost a minute to execute. Multiple seams can have the same energy, make sure to follow the comments to resolve this ambiguity.
+
+## `12-tonemapping` (10 points)
+Follow the description in the slides as well as in "Photographic Tone Reproduction for Digital Images" by Reinhard et al. to implement photograpphic luminance mapping. Some resources that can potentially help you to achieve this goal are stated below.
+
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.sum.html
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.power.html
+
+Make sure to use the fixed version of the first equation. Its definition in the paper does not correctly represent the geometric mean.
+
+## `13-fusion` (10 points)
+Implement exposure fusion as proposed in "Exposure Fusion" by Mertens et al. as well as described in the slides. Some resources that can potentially help you to achieve this goal are stated below.
+
+* https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html
+* https://docs.opencv.org/3.2.0/d7/d1b/group__imgproc__misc.html#ga397ae87e1288a81d2363b61574eb8cab
+* https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gad78703e4c8fe703d479c1860d76429e6
+
+Note that you are only asked to extract and normalize the weight maps. The multiband blending is already implemented for you.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
@@ -115,6 +135,7 @@ I am well aware that this is rather inconvenient but it is at least guaranteed t
 Using a virtual machine is always a viable option. I personally do this as well and developed these exercises in a Debian environment that is running within a virtual machine. Note that there are quite a few free virtualizers to choose from and while I have a preferred one, I would like to take the liberty of not making any advertisements here. Therefore, I would recommend reading a few related online resources.
 
 ## images
+* ahwahnee by [Mark Fairchild](http://rit-mcsl.org/fairchild//HDRPS/Scenes/AhwahneeGreatLounge.html)
 * blend by [Juliane Aulbach](https://www.linkedin.com/in/aulbach)
 * demosaicing by [Patrick Vandewalle et al.](http://lcavwww.epfl.ch/reproducible_research/VandewalleKAS07)
 * fusion, homography, panorama, and text by [Simon Niklaus](https://www.linkedin.com/in/sniklaus)

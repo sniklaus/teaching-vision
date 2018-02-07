@@ -6,7 +6,7 @@ import cv2
 numpyFirst = cv2.imread(filename='./samples/multiband-apple.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 numpySecond = cv2.imread(filename='./samples/multiband-orange.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 
-# blend the apple and the orange using multiband blending with paplacian pyramids
+# blend the apple and the orange using multiband blending with laplacian pyramids
 
 # creating a laplacian pyramid with seven levels for each of the two images
 
