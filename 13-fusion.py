@@ -11,6 +11,7 @@ numpyInputs = [
 
 # use the quality measures to extract a weight map for each image according to section 3.1
 # set the weighting exponents to one, thus equaling the contrition of contrast, saturation, and exposedness
+# make sure to add a small epsilon to each weight map to avoid divisions by zero in the subsequent step
 # normalize the weight maps such that they sum up to one at each pixel as described in section 3.2
 # store the three weight maps in the numpyWeights array which will be used below to perform the blending
 

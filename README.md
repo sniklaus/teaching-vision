@@ -104,7 +104,7 @@ Implement seam carving as described in the slides as well as in "Seam Carving fo
 This can potentially be slow due to Python, the sample solution takes almost a minute to execute. Multiple seams can have the same energy, make sure to follow the comments to resolve this ambiguity.
 
 ## `12-tonemapping` (10 points)
-Follow the description in the slides as well as in "Photographic Tone Reproduction for Digital Images" by Reinhard et al. to implement photograpphic luminance mapping. Some resources that can potentially help you to achieve this goal are stated below.
+Follow the description in the slides as well as in "Photographic Tone Reproduction for Digital Images" by Reinhard et al. to implement photographic luminance mapping. Some resources that can potentially help you to achieve this goal are stated below.
 
 * https://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html
 * https://docs.scipy.org/doc/numpy/reference/generated/numpy.sum.html
