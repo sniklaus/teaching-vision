@@ -120,7 +120,7 @@ Implement exposure fusion as proposed in "Exposure Fusion" by Mertens et al. as 
 * https://docs.opencv.org/3.2.0/d7/d1b/group__imgproc__misc.html#ga397ae87e1288a81d2363b61574eb8cab
 * https://docs.opencv.org/3.4.0/d4/d86/group__imgproc__filter.html#gad78703e4c8fe703d479c1860d76429e6
 
-Note that you are only asked to extract and normalize the weight maps. The multiband blending is already implemented for you.
+Note that you are only asked to extract and normalize the weight maps. The multiband blending is already implemented for you. Please refrain from using OpenCV functions other than `cvtColor` and `Laplacian` for this exercise.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.

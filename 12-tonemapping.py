@@ -11,7 +11,7 @@ numpyRadiance = cv2.imread(filename='./samples/ahwahnee.hdr', flags=-1)
 # perform tone mapping according to the photographic luminance mapping
 
 # first extracting the intensity from the color channels
-# note that the eps is to avoid divisions by zero and log of zero
+# note that the eps / delta is to avoid divisions by zero and log of zero
 
 numpyIntensity = cv2.cvtColor(src=numpyRadiance, code=cv2.COLOR_BGR2GRAY) + 0.0000001
 

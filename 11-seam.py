@@ -47,11 +47,15 @@ for intRemove in range(100):
 	# note that this will not work if you are connected to the linux lab via ssh but no x forwarding
 
 	if False:
+		numpyM /= numpyM.max()
+
 		for intY in range(len(intSeam)):
 			numpyInput[intY, intSeam[intY], :] = numpy.array([ 0.0, 0.0, 1.0 ], numpy.float32)
+			numpyM[intY, intSeam[intY]] = numpy.array([ 1.0 ], numpy.float32)
 		# end
 
 		cv2.imshow(winname='numpyInput', mat=numpyInput)
+		cv2.imshow(winname='numpyM', mat=numpyM)
 		cv2.waitKey(delay=10)
 	# end
 
