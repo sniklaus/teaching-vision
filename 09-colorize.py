@@ -22,6 +22,10 @@ numpyR = numpyInput[intSecond:, :][50:-50, 50:-50]
 
 
 
+
+
+
+
 numpyOutput = numpy.stack([numpyB, numpyG, numpyR], 2)
 
 cv2.imwrite(filename='./09-colorize.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

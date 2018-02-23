@@ -21,6 +21,10 @@ numpyWeights = []
 
 
 
+
+
+
+
 # creating the laplacian and gaussian pyramids to perform multiband blending
 # defining separate functions for this steps makes the code easier to read
 

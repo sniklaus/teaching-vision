@@ -122,6 +122,28 @@ Implement exposure fusion as proposed in "Exposure Fusion" by Mertens et al. as 
 
 Note that you are only asked to extract and normalize the weight maps. The multiband blending is already implemented for you. Please refrain from using OpenCV functions other than `cvtColor` and `Laplacian` for this exercise.
 
+## `14-mnist` (10 points)
+Given a provided neural network to classify handwritten digits as well as a test dataset, find samples that are being misclassified. Some resources that can potentially help you to achieve this goal are stated below.
+
+* http://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html
+* http://pytorch.org/docs/master/autograd.html#torch.autograd.Variable
+* http://pytorch.org/docs/master/tensors.html#torch.Tensor.max
+
+Notice that the misclassified samples are rather ambiguous. In fact, one might remove such samples if they were in the training dataset.
+
+## `15-fashion` (10 points)
+Implement a neural network according to the specifications outlined in the comments. Some resources that can potentially help you to achieve this goal are stated below.
+
+* http://pytorch.org/docs/master/tensors.html#torch.Tensor.view
+* http://pytorch.org/docs/master/nn.html#torch.nn.BatchNorm2d
+* http://pytorch.org/docs/master/nn.html#torch.nn.Conv2d
+* http://pytorch.org/docs/master/nn.html#torch.nn.Linear
+* http://pytorch.org/docs/master/nn.html#torch.nn.functional.relu
+* http://pytorch.org/docs/master/nn.html#torch.nn.functional.max_pool2d
+* http://pytorch.org/docs/master/nn.html#torch.nn.functional.dropout
+
+Make sure to use `pip` or `conda` to install `tqdm` in case the import is causing issues. Notice that the provided code is making use of CUDA and hence requires a NVIDIA graphics card. You can remotely connect to a free machine in one of the Linux labs, not `linux.cs.pdx.edu`, and make use of its graphics card. You can also make use of [Colaboratory](https://colab.research.google.com/) which provides a free GPU instance.
+
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
 

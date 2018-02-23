@@ -34,6 +34,10 @@ for intRemove in range(100):
 
 
 
+
+
+
+
 	# some sanity checks, such that the length of the seam is equal to the height of the image
 	# furthermore iterating over the seam and making sure that it is a connected sequence
 

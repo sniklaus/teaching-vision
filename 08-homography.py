@@ -20,6 +20,10 @@ intDst = [ [302, 222], [746, 231], [296, 490], [754, 485] ]
 
 
 
+
+
+
+
 # use a backward warping algorithm to warp the source
 # to do so, we first create the inverse transform
 # use bilinear interpolation for resampling
@@ -29,6 +33,10 @@ intDst = [ [302, 222], [746, 231], [296, 490], [754, 485] ]
 numpyHomography = numpy.linalg.inv(numpyHomography)
 
 numpyOutput = numpy.zeros(numpyInput.shape, numpy.float32)
+
+
+
+
 
 
 

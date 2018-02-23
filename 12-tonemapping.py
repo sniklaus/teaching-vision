@@ -24,4 +24,8 @@ numpyIntensity = cv2.cvtColor(src=numpyRadiance, code=cv2.COLOR_BGR2GRAY) + 0.00
 
 
 
+
+
+
+
 cv2.imwrite(filename='./12-tonemapping.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

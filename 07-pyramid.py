@@ -13,6 +13,10 @@ numpyPyramid = []
 
 
 
+
+
+
+
 # the following iterates over the levels in numpyPyramid and saves them as an image accordingly
 # level four is just a small-scale representation of the original input image and can be saved as usual
 # the value range for the other levels are outside of [0, 1] and a color mapping is applied before saving them

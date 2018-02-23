@@ -12,5 +12,9 @@ numpyInput = cv2.imread(filename='./samples/noise.png', flags=cv2.IMREAD_COLOR).
 
 
 
+
+
+
+
 cv2.imwrite(filename='./05-median-1.png', img=(numpyFirst * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
 cv2.imwrite(filename='./05-median-2.png', img=(numpySecond * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

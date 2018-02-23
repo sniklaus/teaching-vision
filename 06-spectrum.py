@@ -19,6 +19,10 @@ numpyKernel = numpy.array([[-2, -1, 0], [-1, 1, 1], [0, 1, 2]], numpy.float32)
 
 
 
+
+
+
+
 # plotting the frequency spectrum of the gaussian kernel while making sure that we only plot the real part
 # the logarithmic scaling improves the visualization, the constant bias avoids log(0-1) which is undefined / negative
 # the value range for the spectrum is outside of [0, 1] and a color mapping is applied before saving it

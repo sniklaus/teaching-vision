@@ -43,4 +43,8 @@ numpyOutput[0::2, 0::2, 2] = numpyInput[0::2, 0::2]
 
 
 
+
+
+
+
 cv2.imwrite(filename='./04-convolution.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
