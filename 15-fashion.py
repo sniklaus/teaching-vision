@@ -111,6 +111,7 @@ class Network(torch.nn.Module):
 
 
 
+		return torch.nn.functional.log_softmax(x, dim=1)
 	# end
 # end
 
