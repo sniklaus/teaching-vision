@@ -114,7 +114,7 @@ class Network(torch.nn.Module):
 	# end
 # end
 
-moduleNetwork = Network().cuda()
+moduleNetwork = Network()
 
 # specifying the optimizer based on adaptive moment estimation, adam
 # it will be responsible for updating the parameters of the network
@@ -133,8 +133,8 @@ def train():
 		# in the future, pytorch will combine tensors and variables into one type
 		# the variables are set to be not volatile such that they retain their history
 
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=False).cuda()
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=False).cuda()
+		variableInput = torch.autograd.Variable(data=tensorInput, volatile=False)
+		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=False)
 
 		# setting all previously computed gradients to zero, we will compute new ones
 
@@ -172,8 +172,8 @@ def evaluate():
 	# otherwise the time to evaluate the model would unnecessarily take too much time
 
 	for tensorInput, tensorTarget in objectTrain:
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True).cuda()
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True).cuda()
+		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True)
+		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True)
 
 		variableEstimate = moduleNetwork(variableInput)
 
@@ -181,8 +181,8 @@ def evaluate():
 	# end
 
 	for tensorInput, tensorTarget in objectValidation:
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True).cuda()
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True).cuda()
+		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True)
+		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True)
 
 		variableEstimate = moduleNetwork(variableInput)
 

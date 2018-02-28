@@ -142,7 +142,7 @@ Implement a neural network according to the specifications outlined in the comme
 * http://pytorch.org/docs/master/nn.html#torch.nn.functional.max_pool2d
 * http://pytorch.org/docs/master/nn.html#torch.nn.functional.dropout
 
-Make sure to use `pip` or `conda` to install `tqdm` in case the import is causing issues. Notice that the provided code is making use of CUDA and hence requires a NVIDIA graphics card. You can remotely connect to a free machine in one of the Linux labs, not `linux.cs.pdx.edu`, and make use of its graphics card. You can also make use of [Colaboratory](https://colab.research.google.com/) which provides a free GPU instance.
+Make sure to use `pip` or `conda` to install `tqdm` in case the import is causing issues. Notice that you could speed the training up by making use of a GPU, keep in mind that you are not reqired to train the network though. You can remotely connect to a free machine in one of the Linux labs, not `linux.cs.pdx.edu`, and make use of its graphics card. You can also make use of [Colaboratory](https://colab.research.google.com/) which provides a free GPU instance.
 
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
