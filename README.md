@@ -155,8 +155,7 @@ The exercise makes use of a k-d tree in order to be able to find nearest neighbo
 ## `17-autoencoder` (10 points)
 Use an autoencoder to generate new images by interpolating between the latent representations of two given samples and decoding the interpolated latent representation. Some resources that can potentially help you to achieve this goal are stated below.
 
-* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.html
-* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.query.html#scipy.spatial.KDTree.query
+* https://github.com/pytorch/examples/tree/master/vae
 
 Feel free to try sampling a latent representation from noise instead. Notice that the result will not look convincing since the latent space was not conditioned to a particular distribution.
 
