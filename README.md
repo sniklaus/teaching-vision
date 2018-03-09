@@ -144,6 +144,22 @@ Implement a neural network according to the specifications outlined in the comme
 
 Make sure to use `pip` or `conda` to install `tqdm` in case the import is causing issues. Notice that you could speed the training up by making use of a GPU, keep in mind that you are not reqired to train the network though. You can remotely connect to a free machine in one of the Linux labs, not `linux.cs.pdx.edu`, and make use of its graphics card. You can also make use of [Colaboratory](https://colab.research.google.com/) which provides a free GPU instance.
 
+## `16-pca` (10 points)
+Utilize principal component analysis in order to perform image classification as discussed in class. In particular, this exercise will evaluate the classification accuracy with respect to the number of utilized principal components. Some resources that can potentially help you to achieve this goal are stated below.
+
+* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.html
+* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.query.html#scipy.spatial.KDTree.query
+
+The exercise makes use of a k-d tree in order to be able to find nearest neighbors efficiently. Notice that while PyTorch is being imported, it is only being used to load the MNIST dataset.
+
+## `17-autoencoder` (10 points)
+Use an autoencoder to generate new images by interpolating between the latent representations of two given samples and decoding the interpolated latent representation. Some resources that can potentially help you to achieve this goal are stated below.
+
+* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.html
+* https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.KDTree.query.html#scipy.spatial.KDTree.query
+
+Feel free to try sampling a latent representation from noise instead. Notice that the result will not look convincing since the latent space was not conditioned to a particular distribution.
+
 ## linux lab
 When connecting remotely into the Linux lab, please choose one of the machines in the [first](https://cat.pdx.edu/labstatus/labs/cslinlaba/) or the [second](https://cat.pdx.edu/labstatus/labs/cslinlabb/) lab. After selecting a machine, you can use your credentials to establish a connection through ssh. Note that you can alternatively use PuTTY as well.
 

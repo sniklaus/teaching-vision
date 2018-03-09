@@ -1,7 +1,11 @@
+import torch
+print(torch.__version__)
+
+import torchvision
+print(torchvision.__version__)
+
 import numpy
 import cv2
-import torch
-import torchvision
 
 # find samples from the dataset that are misclassified by the provided model
 
@@ -73,6 +77,9 @@ intWritten = 0
 def write_image(tensorInput, intTarget, intEstimate):
 	global intWritten
 
+	assert(type(tensorInput) == torch.FloatTensor)
+	assert(type(intTarget) == int)
+	assert(type(intEstimate) == int)
 	assert(tensorInput.size(0) == 1)
 	assert(tensorInput.size(1) == 28)
 	assert(tensorInput.size(2) == 28)

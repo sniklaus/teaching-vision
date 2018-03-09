@@ -1,7 +1,11 @@
+import torch
+print(torch.__version__)
+
+import torchvision
+print(torchvision.__version__)
+
 import numpy
 import cv2
-import torch
-import torchvision
 import matplotlib.pyplot
 import tqdm
 
@@ -49,15 +53,15 @@ objectValidation = torch.utils.data.DataLoader(
 # note that this will not work if you are connected to the linux lab
 
 if False:
-	objectRows = matplotlib.pyplot.subplots(2, 4)[1]
+	objectFigure, objectAxis = matplotlib.pyplot.subplots(2, 4)
 
-	for objectRow in objectRows:
-		for objectFig in objectRow:
+	for objectRow in objectAxis:
+		for objectCol in objectRow:
 			tensorInput, tensorTarget = next(iter(objectValidation))
 
-			objectFig.grid(False)
-			objectFig.set_title([ 't-shirt', 'trousers', 'pullover', 'dress', 'coat', 'sandals', 'shirt', 'sneaker', 'bag', 'ankle boot' ][ tensorTarget[0] ])
-			objectFig.imshow(tensorInput[0].permute(1, 2, 0).squeeze(), cmap='gray')
+			objectCol.grid(False)
+			objectCol.set_title([ 't-shirt', 'trousers', 'pullover', 'dress', 'coat', 'sandals', 'shirt', 'sneaker', 'bag', 'ankle boot' ][ tensorTarget[0] ])
+			objectCol.imshow(tensorInput[0].permute(1, 2, 0).squeeze(), cmap='gray')
 		# end
 	# end
 
