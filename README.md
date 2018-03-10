@@ -9,6 +9,7 @@ wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh
 bash Anaconda3-4.2.0-Linux-x86_64.sh -b -p $HOME/anaconda
 rm Anaconda3-4.2.0-Linux-x86_64.sh
 export PATH="$HOME/anaconda/bin:$PATH"
+conda update --all
 pip install opencv-contrib-python
 ```
 
