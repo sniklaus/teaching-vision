@@ -4,8 +4,8 @@ print(torch.__version__)
 import torchvision
 print(torchvision.__version__)
 
-import numpy
 import cv2
+import numpy
 
 # find samples from the dataset that are misclassified by the provided model
 
@@ -70,44 +70,50 @@ moduleNetwork.load_state_dict(torch.load('./14-mnist.pytorch'))
 
 moduleNetwork.eval()
 
-# a utility function that you should use to save / dump misclassified samples
+# iterate over all examples in objectDataset and classify them using moduleNetwork
+# append each misclassified sample to objectOutputs like in the example below
+# note that each entry should also have the true / target as well as the estimated label
 
-intWritten = 0
+objectOutputs = []
 
-def write_image(tensorInput, intTarget, intEstimate):
-	global intWritten
+# objectOutputs.append({
+# 	'tensorInput': torch.rand(28, 28),
+# 	'intTarget': 1,
+# 	'intEstimate': 2
+# })
 
-	assert(type(tensorInput) == torch.FloatTensor)
-	assert(type(intTarget) == int)
-	assert(type(intEstimate) == int)
-	assert(tensorInput.size(0) == 1)
-	assert(tensorInput.size(1) == 28)
-	assert(tensorInput.size(2) == 28)
 
-	intWritten += 1
 
-	numpyInput = numpy.repeat(numpy.rollaxis(tensorInput.numpy(), 0, 3), 3, 2)
-	numpyInput = cv2.resize(src=numpyInput, dsize=(280, 280), fx=0.0, fy=0.0, interpolation=cv2.INTER_NEAREST)
-	numpyInput = (numpyInput * 255.0).clip(0.0, 255.0).astype(numpy.uint8)
 
-	cv2.putText(img=numpyInput, text='truth: ' + str(intTarget), org=(10, 240), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1.0, color=(0, 255, 0), thickness=1, lineType=cv2.LINE_AA)
-	cv2.putText(img=numpyInput, text='estimate: ' + str(intEstimate), org=(10, 270), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1.0, color=(0, 255, 0), thickness=1, lineType=cv2.LINE_AA)
 
-	cv2.imwrite(filename='./14-mnist-' + str(intWritten) + '.png', img=numpyInput)
+
+
+
+
+# making sure that objectOutputs has the correct size and content using asserts
+# afterwards combining all the samples into a single image and saving it to disk
+
+assert(len(objectOutputs) == 6)
+
+numpyOutputs = []
+
+for objectOutput in objectOutputs:
+	assert(type(objectOutput['tensorInput']) == torch.FloatTensor)
+	assert(type(objectOutput['intTarget']) == int)
+	assert(type(objectOutput['intEstimate']) == int)
+	assert(objectOutput['tensorInput'].size(0) == 28)
+	assert(objectOutput['tensorInput'].size(1) == 28)
+
+	numpyOutput = (numpy.repeat(objectOutput['tensorInput'].numpy()[:, :, None], 3, 2).clip(0.0, 1.0) * 255.0).astype(numpy.uint8)
+	numpyOutput = cv2.resize(src=numpyOutput, dsize=None, fx=5.0, fy=5.0, interpolation=cv2.INTER_NEAREST)
+	numpyOutput = numpy.pad(numpyOutput, [(0, 40), (0, 0), (0, 0)], 'constant')
+
+	cv2.putText(img=numpyOutput, text='truth: ' + str(objectOutput['intTarget']), org=(10, 148), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+	cv2.putText(img=numpyOutput, text='estimate: ' + str(objectOutput['intEstimate']), org=(10, 168), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+
+	numpyOutputs.append(numpyOutput)
 # end
 
-# iterate over all examples in objectDataset and classify them using moduleNetwork
-# notice that cuda is not being used, you do not need a gpu for this exercise
-# call write_image for misclassified samples, providing the target label and the estimate
+numpyOutput = numpy.concatenate(numpyOutputs, 1)
 
-
-
-
-
-
-
-
-
-# if the following assert fails then the number of found misclassifications is incorrect
-
-assert(intWritten == 6)
+cv2.imwrite(filename='./14-mnist.png', img=numpyOutput)

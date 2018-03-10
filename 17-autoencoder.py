@@ -5,8 +5,7 @@ import torchvision
 print(torchvision.__version__)
 
 import numpy
-import PIL
-import PIL.Image
+import cv2
 
 # generate new images by interpolating between two latent representations
 
@@ -55,10 +54,14 @@ moduleNetwork = Network()
 
 moduleNetwork.load_state_dict(torch.load('./17-autoencoder.pytorch'))
 
+# setting the network to the evaluation mode, this makes no difference here though
+
+moduleNetwork.eval()
+
 # loading two samples and converting them to tensors, each of size 1x1x28x28
 
-tensorFirst = torch.FloatTensor(numpy.asarray(PIL.Image.open('./samples/fashion-1.png')).astype(numpy.float32) / 255.0).unsqueeze(0).unsqueeze(0)
-tensorSecond = torch.FloatTensor(numpy.asarray(PIL.Image.open('./samples/fashion-2.png')).astype(numpy.float32) / 255.0).unsqueeze(0).unsqueeze(0)
+tensorFirst = torch.FloatTensor(cv2.imread(filename='./samples/fashion-1.png', flags=cv2.IMREAD_GRAYSCALE).astype(numpy.float32) / 255.0).unsqueeze(0).unsqueeze(0)
+tensorSecond = torch.FloatTensor(cv2.imread(filename='./samples/fashion-2.png', flags=cv2.IMREAD_GRAYSCALE).astype(numpy.float32) / 255.0).unsqueeze(0).unsqueeze(0)
 
 # encode the two samples to retrieve their representation in the latent space
 # generate new samples by interpolating between the two latent representations
@@ -89,5 +92,6 @@ for tensorOutput in tensorOutputs:
 tensorOutputs = [ tensorFirst[0, 0] ] + tensorOutputs + [ tensorSecond[0, 0] ]
 
 numpyOutput = (numpy.concatenate([ tensorOutput.numpy() for tensorOutput in tensorOutputs ], 1).clip(0.0, 1.0) * 255.0).astype(numpy.uint8)
+numpyOutput = cv2.resize(src=numpyOutput, dsize=None, fx=2.0, fy=2.0, interpolation=cv2.INTER_NEAREST)
 
-PIL.Image.fromarray(numpyOutput, mode='L').resize(size=(728, 56), resample=PIL.Image.NEAREST).save('./17-autoencoder.png')
+cv2.imwrite(filename='./17-autoencoder.png', img=numpyOutput)
