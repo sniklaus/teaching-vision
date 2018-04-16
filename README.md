@@ -11,6 +11,7 @@ rm Anaconda3-4.2.0-Linux-x86_64.sh
 export PATH="$HOME/anaconda/bin:$PATH"
 conda update --all
 pip install opencv-contrib-python
+conda install -y pytorch=0.3.0 torchvision=0.2.0 -c pytorch
 ```
 
 Should you be using the machines in the Linux lab, you also need to make sure that you run the `export` command again when logging out and back in. Since the Linux lab is a shared environment, the `.bashrc` cannot be modified which prevents Anaconda from doing this automatically for you.
