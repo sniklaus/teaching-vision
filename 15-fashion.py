@@ -61,7 +61,7 @@ if False:
 
 			objectCol.grid(False)
 			objectCol.set_title([ 't-shirt', 'trousers', 'pullover', 'dress', 'coat', 'sandals', 'shirt', 'sneaker', 'bag', 'ankle boot' ][ tensorTarget[0] ])
-			objectCol.imshow(tensorInput[0].permute(1, 2, 0).squeeze(), cmap='gray')
+			objectCol.imshow(tensorInput[0, 0, :, :].cpu().numpy().transpose(1, 2, 0), cmap='gray')
 		# end
 	# end
 
@@ -130,17 +130,11 @@ def train():
 	# setting the network to the training mode, some modules behave differently during training
 
 	moduleNetwork.train()
+	torch.set_grad_enabled(True)
 
 	# obtain samples and their ground truth from the training dataset, one minibatch at a time
 
 	for tensorInput, tensorTarget in tqdm.tqdm(objectTrain):
-		# wrapping the loaded tensors into variables, allowing them to have gradients
-		# in the future, pytorch will combine tensors and variables into one type
-		# the variables are set to be not volatile such that they retain their history
-
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=False)
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=False)
-
 		# setting all previously computed gradients to zero, we will compute new ones
 
 		objectOptimizer.zero_grad()
@@ -166,6 +160,7 @@ def evaluate():
 	# setting the network to the evaluation mode, some modules behave differently during evaluation
 
 	moduleNetwork.eval()
+	torch.set_grad_enabled(False)
 
 	# defining two variables that will count the number of correct classifications
 
@@ -177,21 +172,15 @@ def evaluate():
 	# otherwise the time to evaluate the model would unnecessarily take too much time
 
 	for tensorInput, tensorTarget in objectTrain:
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True)
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True)
+		tensorEstimate = moduleNetwork(tensorInput)
 
-		variableEstimate = moduleNetwork(variableInput)
-
-		intTrain += variableEstimate.data.max(dim=1, keepdim=False)[1].eq(variableTarget.data).sum()
+		intTrain += tensorEstimate.max(dim=1, keepdim=False)[1].eq(tensorTarget).sum()
 	# end
 
 	for tensorInput, tensorTarget in objectValidation:
-		variableInput = torch.autograd.Variable(data=tensorInput, volatile=True)
-		variableTarget = torch.autograd.Variable(data=tensorTarget, volatile=True)
+		tensorEstimate = moduleNetwork(tensorInput)
 
-		variableEstimate = moduleNetwork(variableInput)
-
-		intValidation += variableEstimate.data.max(dim=1, keepdim=False)[1].eq(variableTarget.data).sum()
+		intValidation += tensorEstimate.max(dim=1, keepdim=False)[1].eq(tensorTarget).sum()
 	# end
 
 	# determining the accuracy based on the number of correct predictions and the size of the dataset

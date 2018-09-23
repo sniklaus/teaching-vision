@@ -106,7 +106,7 @@ for objectOutput in objectOutputs:
 
 	numpyOutput = (numpy.repeat(objectOutput['tensorInput'].numpy()[:, :, None], 3, 2).clip(0.0, 1.0) * 255.0).astype(numpy.uint8)
 	numpyOutput = cv2.resize(src=numpyOutput, dsize=None, fx=5.0, fy=5.0, interpolation=cv2.INTER_NEAREST)
-	numpyOutput = numpy.pad(numpyOutput, [(0, 40), (0, 0), (0, 0)], 'constant')
+	numpyOutput = numpy.pad(numpyOutput, [ (0, 40), (0, 0), (0, 0) ], 'constant')
 
 	cv2.putText(img=numpyOutput, text='truth: ' + str(objectOutput['intTarget']), org=(10, 148), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
 	cv2.putText(img=numpyOutput, text='estimate: ' + str(objectOutput['intEstimate']), org=(10, 168), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)

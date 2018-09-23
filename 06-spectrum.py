@@ -5,7 +5,7 @@ numpyImage = cv2.imread(filename='./samples/lenna.png', flags=cv2.IMREAD_GRAYSCA
 
 # creating a relief kernel that you are subsequently asked to apply in the frequency space
 
-numpyKernel = numpy.array([[-2, -1, 0], [-1, 1, 1], [0, 1, 2]], numpy.float32)
+numpyKernel = numpy.array([ [ -2, -1, 0 ], [ -1, 1, 1 ], [ 0, 1, 2 ] ], numpy.float32)
 
 # pad numpyKernel such that its resolution is equal to the resolution of numpyImage
 # roll it one pixel to the left and one pixel to the top in order to adjust the phase
@@ -25,9 +25,9 @@ numpyKernel = numpy.array([[-2, -1, 0], [-1, 1, 1], [0, 1, 2]], numpy.float32)
 
 # plotting the frequency spectrum of the gaussian kernel while making sure that we only plot the real part
 # the logarithmic scaling improves the visualization, the constant bias avoids log(0-1) which is undefined / negative
-# the value range for the spectrum is outside of [0, 1] and a color mapping is applied before saving it
+# the value range for the spectrum is outside of [ 0, 1 ] and a color mapping is applied before saving it
 
-numpySpectrum = numpy.log(numpy.abs(numpy.fft.fftshift(numpyKernel)) + 1.0)
+numpySpectrum = numpy.log(numpy.fft.fftshift(numpyKernel).__abs__() + 1.0)
 numpySpectrum = numpySpectrum / numpySpectrum.max()
 
 numpyImage = numpyImage.real

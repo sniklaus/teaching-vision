@@ -27,7 +27,7 @@ numpyInput = cv2.imread(filename='./samples/demosaicing.png', flags=cv2.IMREAD_G
 
 # since this can be tricky and you might not be perfectly familiar with indexing and splicing matrices yet, this is already done for you below
 
-numpyOutput = numpy.zeros([numpyInput.shape[0], numpyInput.shape[1], 3], numpy.float32)
+numpyOutput = numpy.zeros([ numpyInput.shape[0], numpyInput.shape[1], 3 ], numpy.float32)
 
 numpyOutput[1::2, 1::2, 0] = numpyInput[1::2, 1::2]
 numpyOutput[0::2, 1::2, 1] = numpyInput[0::2, 1::2]

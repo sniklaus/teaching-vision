@@ -9,8 +9,8 @@ numpyInput = cv2.imread(filename='./samples/seam.png', flags=cv2.IMREAD_COLOR).a
 
 # using a heuristic energy function to extract an energy map
 
-numpyEnergy = numpy.abs(cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=1, dy=0, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT)) \
-			+ numpy.abs(cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=0, dy=1, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT))
+numpyEnergy = cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=1, dy=0, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__() \
+			+ cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=0, dy=1, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__()
 
 # find and remove one-hundred vertical seams, can potentially be slow
 
@@ -44,7 +44,7 @@ for intRemove in range(100):
 	assert(len(intSeam) == numpyInput.shape[0])
 
 	for intY in range(1, len(intSeam)):
-		assert(intSeam[intY] - intSeam[intY - 1] in [-1, 0, 1])
+		assert(intSeam[intY] - intSeam[intY - 1] in [ -1, 0, 1 ])
 	# end
 
 	# change the following condition to true if you want to visualize the seams that are being removed
