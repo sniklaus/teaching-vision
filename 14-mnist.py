@@ -12,7 +12,7 @@ import numpy
 # creating a data loader for the training samples of the mnist dataset
 # specifying the batch size and making sure it runs in a background thread
 
-objectDataset = torch.utils.data.DataLoader(
+objDataset = torch.utils.data.DataLoader(
 	batch_size=64,
 	shuffle=False,
 	num_workers=1,
@@ -30,13 +30,13 @@ objectDataset = torch.utils.data.DataLoader(
 
 # reducing the size of the dataset to limit the number of misclassified samples
 
-objectDataset.dataset.test_data = objectDataset.dataset.test_data[:700]
+objDataset.dataset.test_data = objDataset.dataset.test_data[:700]
 
 # defining the network, just a basic convolutional neural network from the slides
 
 class Network(torch.nn.Module):
 	def __init__(self):
-		super(Network, self).__init__()
+		super().__init__()
 
 		self.conv1 = torch.nn.Conv2d(1, 32, kernel_size=5)
 		self.conv2 = torch.nn.Conv2d(32, 64, kernel_size=5)
@@ -68,16 +68,16 @@ moduleNetwork.load_state_dict(torch.load('./14-mnist.pytorch'))
 
 # setting the network to the evaluation mode, this makes no difference here though
 
-moduleNetwork.eval()
+moduleNetwork.train(False)
 
-# iterate over all examples in objectDataset and classify them using moduleNetwork
-# append each misclassified sample to objectOutputs like in the example below
+# iterate over all examples in objDataset and classify them using moduleNetwork
+# append each misclassified sample to objOutputs like in the example below
 # note that each entry should also have the true / target as well as the estimated label
 
-objectOutputs = []
+objOutputs = []
 
-# objectOutputs.append({
-# 	'tensorInput': torch.rand(28, 28),
+# objOutputs.append({
+# 	'tenInput': torch.rand(28, 28),
 # 	'intTarget': 1,
 # 	'intEstimate': 2
 # })
@@ -90,30 +90,30 @@ objectOutputs = []
 
 
 
-# making sure that objectOutputs has the correct size and content using asserts
+# making sure that objOutputs has the correct size and content using asserts
 # afterwards combining all the samples into a single image and saving it to disk
 
-assert(len(objectOutputs) == 6)
+assert(len(objOutputs) == 6)
 
-numpyOutputs = []
+npyOutputs = []
 
-for objectOutput in objectOutputs:
-	assert(type(objectOutput['tensorInput']) == torch.FloatTensor)
-	assert(type(objectOutput['intTarget']) == int)
-	assert(type(objectOutput['intEstimate']) == int)
-	assert(objectOutput['tensorInput'].size(0) == 28)
-	assert(objectOutput['tensorInput'].size(1) == 28)
+for objOutput in objOutputs:
+	assert(type(objOutput['tenInput']) == torch.FloatTensor)
+	assert(type(objOutput['intTarget']) == int)
+	assert(type(objOutput['intEstimate']) == int)
+	assert(objOutput['tenInput'].shape[0] == 28)
+	assert(objOutput['tenInput'].shape[1] == 28)
 
-	numpyOutput = (numpy.repeat(objectOutput['tensorInput'].numpy()[:, :, None], 3, 2).clip(0.0, 1.0) * 255.0).astype(numpy.uint8)
-	numpyOutput = cv2.resize(src=numpyOutput, dsize=None, fx=5.0, fy=5.0, interpolation=cv2.INTER_NEAREST)
-	numpyOutput = numpy.pad(numpyOutput, [ (0, 40), (0, 0), (0, 0) ], 'constant')
+	npyOutput = (numpy.repeat(objOutput['tenInput'].numpy(force=True)[:, :, None], 3, 2).clip(0.0, 1.0) * 255.0).astype(numpy.uint8)
+	npyOutput = cv2.resize(src=npyOutput, dsize=None, fx=5.0, fy=5.0, interpolation=cv2.INTER_NEAREST)
+	npyOutput = numpy.pad(npyOutput, [ (0, 40), (0, 0), (0, 0) ], 'constant')
 
-	cv2.putText(img=numpyOutput, text='truth: ' + str(objectOutput['intTarget']), org=(10, 148), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
-	cv2.putText(img=numpyOutput, text='estimate: ' + str(objectOutput['intEstimate']), org=(10, 168), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+	cv2.putText(img=npyOutput, text='truth: ' + str(objOutput['intTarget']), org=(10, 148), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
+	cv2.putText(img=npyOutput, text='estimate: ' + str(objOutput['intEstimate']), org=(10, 168), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
 
-	numpyOutputs.append(numpyOutput)
+	npyOutputs.append(npyOutput)
 # end
 
-numpyOutput = numpy.concatenate(numpyOutputs, 1)
+npyOutput = numpy.concatenate(npyOutputs, 1)
 
-cv2.imwrite(filename='./14-mnist.png', img=numpyOutput)
+cv2.imwrite(filename='./14-mnist.png', img=npyOutput)

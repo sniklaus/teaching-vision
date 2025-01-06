@@ -1,8 +1,8 @@
-import numpy
 import cv2
 import math
+import numpy
 
-numpyInput = cv2.imread(filename='./samples/homography-2.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
+npyInput = cv2.imread(filename='./samples/homography-2.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 
 # estimate the homography matrix between matching points and warp the image using bilinear interpolation
 
@@ -30,11 +30,9 @@ intDst = [ [302, 222], [746, 231], [296, 490], [754, 485] ]
 # in practice, cv2.warpPerspective can be used for this
 # however, do not use this function for this exercise
 
-numpyHomography = numpy.linalg.inv(numpyHomography)
+npyHomography = numpy.linalg.inv(npyHomography)
 
-numpyOutput = numpy.zeros(numpyInput.shape, numpy.float32)
-
-
+npyOutput = numpy.zeros(npyInput.shape, numpy.float32)
 
 
 
@@ -42,4 +40,6 @@ numpyOutput = numpy.zeros(numpyInput.shape, numpy.float32)
 
 
 
-cv2.imwrite(filename='./08-homography.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+
+
+cv2.imwrite(filename='./08-homography.png', img=(npyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

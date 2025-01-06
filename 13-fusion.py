@@ -1,9 +1,9 @@
-import numpy
 import cv2
+import numpy
 
 # this exercise references "Exposure Fusion" by Mertens et al.
 
-numpyInputs = [
+npyInputs = [
 	cv2.imread(filename='./samples/fusion-1.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0,
 	cv2.imread(filename='./samples/fusion-2.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0,
 	cv2.imread(filename='./samples/fusion-3.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
@@ -13,9 +13,9 @@ numpyInputs = [
 # set the weighting exponents to one, thus equaling the contrition of contrast, saturation, and exposedness
 # make sure to add 0.0000001 to the weight map of each image to avoid divisions by zero in the subsequent step
 # normalize the weight maps such that they sum up to one at each pixel as described in section 3.2
-# store the three weight maps in the numpyWeights array which will be used below to perform the blending
+# store the three weight maps in the npyWeights array which will be used below to perform the blending
 
-numpyWeights = []
+npyWeights = []
 
 
 
@@ -28,47 +28,47 @@ numpyWeights = []
 # creating the laplacian and gaussian pyramids to perform multiband blending
 # defining separate functions for this steps makes the code easier to read
 
-def gaussian_pyramid(numpyInput, intLevels):
-	numpyPyramid = [ numpyInput ]
+def gaussian_pyramid(npyInput, intLevels):
+	npyPyramid = [ npyInput ]
 
 	for intLevel in range(intLevels):
-		numpyPyramid.append(cv2.pyrDown(numpyPyramid[-1]))
+		npyPyramid.append(cv2.pyrDown(npyPyramid[-1]))
 	# end
 
-	return numpyPyramid
+	return npyPyramid
 # end
 
-def laplacian_pyramid(numpyInput, intLevels):
-	numpyPyramid = [ numpyInput ]
+def laplacian_pyramid(npyInput, intLevels):
+	npyPyramid = [ npyInput ]
 
 	for intLevel in range(intLevels):
-		numpyPyramid.append(cv2.pyrDown(numpyPyramid[-1]))
+		npyPyramid.append(cv2.pyrDown(npyPyramid[-1]))
 
-		numpyPyramid[-2] -= cv2.pyrUp(numpyPyramid[-1])
+		npyPyramid[-2] -= cv2.pyrUp(npyPyramid[-1])
 	# end
 
-	return numpyPyramid
+	return npyPyramid
 # end
 
-numpyInputs = [ laplacian_pyramid(numpyInput, 6) for numpyInput in numpyInputs ]
-numpyWeights = [ gaussian_pyramid(numpyWeight, 6) for numpyWeight in numpyWeights ]
+npyInputs = [ laplacian_pyramid(npyInput, 6) for npyInput in npyInputs ]
+npyWeights = [ gaussian_pyramid(npyWeight, 6) for npyWeight in npyWeights ]
 
 # constructing a laplacian pyramid by using the weights from the gaussian pyramid
 # eventually obtaining the fused result by recovering the output from the merged pyramid
 
-numpyPyramid = []
+npyPyramid = []
 
-for intLevel in range(len(numpyInputs[0])):
-	numpyPyramid.append(sum([ numpyInputs[intInput][intLevel] * numpyWeights[intInput][intLevel][:, :, None] for intInput in range(len(numpyInputs)) ]))
+for intLevel in range(len(npyInputs[0])):
+	npyPyramid.append(sum([ npyInputs[intInput][intLevel] * npyWeights[intInput][intLevel][:, :, None] for intInput in range(len(npyInputs)) ]))
 # end
 
-numpyOutput = numpyPyramid.pop(-1)
+npyOutput = npyPyramid.pop(-1)
 
-while len(numpyPyramid) > 0:
-	numpyOutput = cv2.pyrUp(numpyOutput) + numpyPyramid.pop(-1)
+while len(npyPyramid) > 0:
+	npyOutput = cv2.pyrUp(npyOutput) + npyPyramid.pop(-1)
 # end
 
-cv2.imwrite(filename='./13-fusion-1.png', img=(numpyWeights[0][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
-cv2.imwrite(filename='./13-fusion-2.png', img=(numpyWeights[1][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
-cv2.imwrite(filename='./13-fusion-3.png', img=(numpyWeights[2][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
-cv2.imwrite(filename='./13-fusion-4.png', img=(numpyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+cv2.imwrite(filename='./13-fusion-1.png', img=(npyWeights[0][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+cv2.imwrite(filename='./13-fusion-2.png', img=(npyWeights[1][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+cv2.imwrite(filename='./13-fusion-3.png', img=(npyWeights[2][0] * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+cv2.imwrite(filename='./13-fusion-4.png', img=(npyOutput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

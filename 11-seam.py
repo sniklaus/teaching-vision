@@ -1,16 +1,16 @@
-import numpy
 import cv2
+import numpy
 
 # this exercise references "Seam Carving for Content-Aware Image Resizing" by Avidan and Shamir
 
-numpyInput = cv2.imread(filename='./samples/seam.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
+npyInput = cv2.imread(filename='./samples/seam.png', flags=cv2.IMREAD_COLOR).astype(numpy.float32) / 255.0
 
 # implement content-aware image resizing to reduce the width of the image by one-hundred pixels
 
 # using a heuristic energy function to extract an energy map
 
-numpyEnergy = cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=1, dy=0, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__() \
-			+ cv2.Sobel(src=cv2.cvtColor(src=numpyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=0, dy=1, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__()
+npyEnergy = cv2.Sobel(src=cv2.cvtColor(src=npyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=1, dy=0, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__() \
+			+ cv2.Sobel(src=cv2.cvtColor(src=npyInput, code=cv2.COLOR_BGR2GRAY), ddepth=-1, dx=0, dy=1, ksize=3, scale=1, delta=0.0, borderType=cv2.BORDER_DEFAULT).__abs__()
 
 # find and remove one-hundred vertical seams, can potentially be slow
 
@@ -41,7 +41,7 @@ for intRemove in range(100):
 	# some sanity checks, such that the length of the seam is equal to the height of the image
 	# furthermore iterating over the seam and making sure that it is a connected sequence
 
-	assert(len(intSeam) == numpyInput.shape[0])
+	assert(len(intSeam) == npyInput.shape[0])
 
 	for intY in range(1, len(intSeam)):
 		assert(intSeam[intY] - intSeam[intY - 1] in [ -1, 0, 1 ])
@@ -51,15 +51,15 @@ for intRemove in range(100):
 	# note that this will not work if you are connected to the linux lab via ssh but no x forwarding
 
 	if False:
-		numpyM /= numpyM.max()
+		npyM /= npyM.max()
 
 		for intY in range(len(intSeam)):
-			numpyInput[intY, intSeam[intY], :] = numpy.array([ 0.0, 0.0, 1.0 ], numpy.float32)
-			numpyM[intY, intSeam[intY]] = numpy.array([ 1.0 ], numpy.float32)
+			npyInput[intY, intSeam[intY], :] = numpy.array([ 0.0, 0.0, 1.0 ], numpy.float32)
+			npyM[intY, intSeam[intY]] = numpy.array([ 1.0 ], numpy.float32)
 		# end
 
-		cv2.imshow(winname='numpyInput', mat=numpyInput)
-		cv2.imshow(winname='numpyM', mat=numpyM)
+		cv2.imshow(winname='npyInput', mat=npyInput)
+		cv2.imshow(winname='npyM', mat=npyM)
 		cv2.waitKey(delay=10)
 	# end
 
@@ -67,12 +67,12 @@ for intRemove in range(100):
 	# after the shifting in each row, the image and the energy map are cropped by one pixel on the right
 
 	for intY in range(len(intSeam)):
-		numpyInput[intY, intSeam[intY]:-1, :] = numpyInput[intY, (intSeam[intY] + 1 ):, :]
-		numpyEnergy[intY, intSeam[intY]:-1] = numpyEnergy[intY, (intSeam[intY] + 1):]
+		npyInput[intY, intSeam[intY]:-1, :] = npyInput[intY, (intSeam[intY] + 1 ):, :]
+		npyEnergy[intY, intSeam[intY]:-1] = npyEnergy[intY, (intSeam[intY] + 1):]
 	# end
 
-	numpyInput = numpyInput[:, :-1, :]
-	numpyEnergy = numpyEnergy[:, :-1]
+	npyInput = npyInput[:, :-1, :]
+	npyEnergy = npyEnergy[:, :-1]
 # end
 
-cv2.imwrite(filename='./11-seam.png', img=(numpyInput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))
+cv2.imwrite(filename='./11-seam.png', img=(npyInput * 255.0).clip(0.0, 255.0).astype(numpy.uint8))

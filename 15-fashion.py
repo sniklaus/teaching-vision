@@ -1,23 +1,17 @@
-import torch
-print(torch.__version__)
-
-import torchvision
-print(torchvision.__version__)
-
-import numpy
-import cv2
 import matplotlib.pyplot
+import torch
+import torchvision
 import tqdm
 
 # implement a neural network according to the provided specification
 
-dblTrain = []
-dblValidation = []
+fltTrain = []
+fltValidation = []
 
 # creating a data loader for the training samples of the fashion dataset
 # specifying the batch size and making sure it runs in a background thread
 
-objectTrain = torch.utils.data.DataLoader(
+objTrain = torch.utils.data.DataLoader(
 	batch_size=64,
 	shuffle=True,
 	num_workers=1,
@@ -34,7 +28,7 @@ objectTrain = torch.utils.data.DataLoader(
 
 # creating a data loader for the validation samples of the fashion dataset
 
-objectValidation = torch.utils.data.DataLoader(
+objValidation = torch.utils.data.DataLoader(
 	batch_size=64,
 	shuffle=True,
 	num_workers=1,
@@ -53,15 +47,15 @@ objectValidation = torch.utils.data.DataLoader(
 # note that this will not work if you are connected to the linux lab
 
 if False:
-	objectFigure, objectAxis = matplotlib.pyplot.subplots(2, 4)
+	objFigure, objAxis = matplotlib.pyplot.subplots(2, 4)
 
-	for objectRow in objectAxis:
-		for objectCol in objectRow:
-			tensorInput, tensorTarget = next(iter(objectValidation))
+	for objRow in objAxis:
+		for objCol in objRow:
+			tenInput, tenTarget = next(iter(objValidation))
 
-			objectCol.grid(False)
-			objectCol.set_title([ 't-shirt', 'trousers', 'pullover', 'dress', 'coat', 'sandals', 'shirt', 'sneaker', 'bag', 'ankle boot' ][ tensorTarget[0] ])
-			objectCol.imshow(tensorInput[0, 0, :, :].cpu().numpy().transpose(1, 2, 0), cmap='gray')
+			objCol.grid(False)
+			objCol.set_title([ 't-shirt', 'trousers', 'pullover', 'dress', 'coat', 'sandals', 'shirt', 'sneaker', 'bag', 'ankle boot' ][ tenTarget[0] ])
+			objCol.imshow(tenInput[0, 0, :, :].numpy(force=True).transpose(1, 2, 0), cmap='gray')
 		# end
 	# end
 
@@ -93,7 +87,7 @@ class Network(torch.nn.Module):
 	#######################################################################
 
 	def __init__(self):
-		super(Network, self).__init__()
+		super().__init__()
 
 
 
@@ -124,7 +118,7 @@ moduleNetwork = Network()
 # specifying the optimizer based on adaptive moment estimation, adam
 # it will be responsible for updating the parameters of the network
 
-objectOptimizer = torch.optim.Adam(params=moduleNetwork.parameters(), lr=0.001)
+objOptimizer = torch.optim.Adam(params=moduleNetwork.parameters(), lr=0.001)
 
 def train():
 	# setting the network to the training mode, some modules behave differently during training
@@ -134,10 +128,10 @@ def train():
 
 	# obtain samples and their ground truth from the training dataset, one minibatch at a time
 
-	for tensorInput, tensorTarget in tqdm.tqdm(objectTrain):
+	for tenInput, tenTarget in tqdm.tqdm(objTrain):
 		# setting all previously computed gradients to zero, we will compute new ones
 
-		objectOptimizer.zero_grad()
+		objOptimizer.zero_grad()
 
 		# performing a forward pass through the network while retaining a computational graph
 
@@ -152,14 +146,14 @@ def train():
 
 		# calling the optimizer, allowing it to update the weights according to the gradients
 
-		objectOptimizer.step()
+		objOptimizer.step()
 	# end
 # end
 
 def evaluate():
 	# setting the network to the evaluation mode, some modules behave differently during evaluation
 
-	moduleNetwork.eval()
+	moduleNetwork.train(False)
 	torch.set_grad_enabled(False)
 
 	# defining two variables that will count the number of correct classifications
@@ -171,26 +165,26 @@ def evaluate():
 	# this is typically done one a subset of the samples in each set, unlike here
 	# otherwise the time to evaluate the model would unnecessarily take too much time
 
-	for tensorInput, tensorTarget in objectTrain:
-		tensorEstimate = moduleNetwork(tensorInput)
+	for tenInput, tenTarget in objTrain:
+		tenEstimate = moduleNetwork(tenInput)
 
-		intTrain += tensorEstimate.max(dim=1, keepdim=False)[1].eq(tensorTarget).sum()
+		intTrain += tenEstimate.max(dim=1, keepdim=False)[1].eq(tenTarget).sum()
 	# end
 
-	for tensorInput, tensorTarget in objectValidation:
-		tensorEstimate = moduleNetwork(tensorInput)
+	for tenInput, tenTarget in objValidation:
+		tenEstimate = moduleNetwork(tenInput)
 
-		intValidation += tensorEstimate.max(dim=1, keepdim=False)[1].eq(tensorTarget).sum()
+		intValidation += tenEstimate.max(dim=1, keepdim=False)[1].eq(tenTarget).sum()
 	# end
 
 	# determining the accuracy based on the number of correct predictions and the size of the dataset
 
-	dblTrain.append(100.0 * intTrain / len(objectTrain.dataset))
-	dblValidation.append(100.0 * intValidation / len(objectValidation.dataset))
+	fltTrain.append(100.0 * intTrain / len(objTrain.dataset))
+	fltValidation.append(100.0 * intValidation / len(objValidation.dataset))
 
 	print('')
-	print('train: ' + str(intTrain) + '/' + str(len(objectTrain.dataset)) + ' (' + str(dblTrain[-1]) + '%)')
-	print('validation: ' + str(intValidation) + '/' + str(len(objectValidation.dataset)) + ' (' + str(dblValidation[-1]) + '%)')
+	print('train: ' + str(intTrain) + '/' + str(len(objTrain.dataset)) + ' (' + str(fltTrain[-1]) + '%)')
+	print('validation: ' + str(intValidation) + '/' + str(len(objValidation.dataset)) + ' (' + str(fltValidation[-1]) + '%)')
 	print('')
 # end
 
@@ -207,7 +201,7 @@ for intEpoch in range(100):
 if False:
 	matplotlib.pyplot.figure(figsize=(8.0, 5.0), dpi=150.0)
 	matplotlib.pyplot.ylim(79.5, 100.5)
-	matplotlib.pyplot.plot(dblTrain)
-	matplotlib.pyplot.plot(dblValidation)
+	matplotlib.pyplot.plot(fltTrain)
+	matplotlib.pyplot.plot(fltValidation)
 	matplotlib.pyplot.show()
 # end

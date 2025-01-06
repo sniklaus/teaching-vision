@@ -14,7 +14,7 @@ import scipy.spatial
 # specifying the batch size as well as the normalization transform
 # notice that the batch size is huge, we misuse torchvision a little bit
 
-objectTrain = torch.utils.data.DataLoader(
+objTrain = torch.utils.data.DataLoader(
 	batch_size=60000,
 	shuffle=False,
 	num_workers=1,
@@ -32,7 +32,7 @@ objectTrain = torch.utils.data.DataLoader(
 
 # creating a data loader for the validation samples of the mnist dataset
 
-objectValidation = torch.utils.data.DataLoader(
+objValidation = torch.utils.data.DataLoader(
 	batch_size=100,
 	shuffle=False,
 	num_workers=1,
@@ -51,31 +51,31 @@ objectValidation = torch.utils.data.DataLoader(
 # obtaining the mnist data using the data loader and reshaping it
 # principal component analysis expects one-dimensional features
 
-tensorInputTrain, tensorTargetTrain = next(iter(objectTrain))
-tensorInputValidation, tensorTargetValidation = next(iter(objectValidation))
+tenInputTrain, tenTargetTrain = next(iter(objTrain))
+tenInputValidation, tenTargetValidation = next(iter(objValidation))
 
-numpyInputTrain = tensorInputTrain.view(-1, 784).numpy()
-numpyInputValidation = tensorInputValidation.view(-1, 784).numpy()
+npyInputTrain = tenInputTrain.view(-1, 784).numpy(force=True)
+npyInputValidation = tenInputValidation.view(-1, 784).numpy(force=True)
 
 # calculating the covariance matrix of the zero-mean data points
 # calculating the eigenvectors and the corresponding eigenvalues
 # sorting the eigenvectors according to their eigenvalues in descending order
 
-numpyCov = numpy.cov(numpyInputTrain - numpyInputTrain.mean(0), None, False, False)
-numpyEvals, numpyEvecs = scipy.linalg.eigh(numpyCov)
-numpyDescending = numpy.argsort(numpyEvals)[::-1]
-numpyEvecs = numpyEvecs[:, numpyDescending]
+npyCov = numpy.cov(npyInputTrain - npyInputTrain.mean(0), None, False, False)
+npyEvals, npyEvecs = scipy.linalg.eigh(npyCov)
+npyDescending = numpy.argsort(npyEvals)[::-1]
+npyEvecs = npyEvecs[:, npyDescending]
 
 # evaluating the effect of the number of utilized principal components
 
 for intK in [ 7, 14, 28 ]:
 	# transforming the training data points into intK dimensions
 
-	numpyOutputTrain = numpy.dot(numpyInputTrain, numpyEvecs[:, :intK])
+	npyOutputTrain = numpy.dot(npyInputTrain, npyEvecs[:, :intK])
 
 	# storing the transformed data points in a k-d tree for efficiency
 
-	objectDatabase = scipy.spatial.KDTree(numpyOutputTrain)
+	objDatabase = scipy.spatial.KDTree(npyOutputTrain)
 
 	# transform the validation data points into intK dimensions
 	# find the nearest neighbor for each sample in the validation set
@@ -83,7 +83,7 @@ for intK in [ 7, 14, 28 ]:
 	# classify the sample based on the class of the nearest neighbor
 	# count the correct classifications to determine the accuracy
 
-	dblAccuracy = 0.0
+	fltAccuracy = 0.0
 
 
 
@@ -96,5 +96,5 @@ for intK in [ 7, 14, 28 ]:
 	# printing the number of used features as well as the accuracy
 	# the solution does print "7: 0.84", "14: 0.96", and "28: 0.99"
 
-	print(str(intK) + ': ' + str(dblAccuracy))
+	print(str(intK) + ': ' + str(fltAccuracy))
 # end
